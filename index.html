@@ -161,11 +161,12 @@
                     definitionDiv.classList.add('wrong');
 
                     setTimeout(() => {
-                        selectedWord.classList.remove('wrong');
+                        selectedWord.classList.remove('wrong', 'selected');
+                        selectedWord.classList.add('word');
                         definitionDiv.classList.remove('wrong');
+                        definitionDiv.classList.add('definition');
                     }, 1000);
                 }
-                selectedWord.classList.remove('selected');
                 selectedWord = null;
                 checkCompletion();
             }
