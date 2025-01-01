@@ -45,6 +45,14 @@
         .hidden {
             display: none;
         }
+        #image-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        #image-container img {
+            max-width: 100%;
+            height: auto;
+        }
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
             25% { transform: translateX(-5px); }
@@ -69,6 +77,9 @@
             <!-- Definitions will be inserted here -->
         </div>
     </div>
+    <div id="image-container" class="hidden">
+        <img id="success-image" src="" alt="Success Image">
+    </div>
     <div id="result"></div>
     <button id="next-button" class="hidden">Next</button>
 
@@ -90,7 +101,7 @@
             { word: "prize", definition: "ödül (noun)" },
             { word: "indispensable", definition: "vazgeçilmez (adjective)" },
             { word: "approach", definition: "yaklaşım (noun)" },
-            { word: "orbit", definition: "yörünge (noun)" },
+            { word: "orbit", definition: "yörünge (noun)", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Orbit1.svg/1200px-Orbit1.svg.png" },
             { word: "fall", definition: "düşmek (verb)" },
             { word: "expand", definition: "genişlemek (verb)" },
             { word: "costly", definition: "maliyetli (adjective)" },
@@ -156,6 +167,10 @@
                     definitionDiv.classList.remove('wrong');
                     selectedWord.classList.add('matched');
                     definitionDiv.classList.add('matched');
+
+                    if (correctPair.image) {
+                        showImage(correctPair.image);
+                    }
                 } else {
                     selectedWord.classList.add('wrong');
                     definitionDiv.classList.add('wrong');
@@ -170,6 +185,19 @@
                 selectedWord = null;
                 checkCompletion();
             }
+        }
+
+        function showImage(imageUrl) {
+            const imageContainer = document.getElementById('image-container');
+            const successImage = document.getElementById('success-image');
+
+            successImage.src = imageUrl;
+            imageContainer.classList.remove('hidden');
+
+            setTimeout(() => {
+                imageContainer.classList.add('hidden');
+                successImage.src = '';
+            }, 3000);
         }
 
         function checkCompletion() {
